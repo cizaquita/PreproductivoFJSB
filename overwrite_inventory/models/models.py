@@ -786,8 +786,8 @@ class Picking(models.Model):
     def button_validate_confirm(self):
         self.ensure_one()
 
-        if not self.env['mrp.production'].search([['name', '=', self.origin]]):
-            self._check_different_lot_stock_moves()
+        #if not self.env['mrp.production'].search([['name', '=', self.origin]]):
+        #    self._check_different_lot_stock_moves()
 
         if self.state == 'waiting':
             raise UserError(
