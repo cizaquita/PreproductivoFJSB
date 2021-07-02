@@ -21,10 +21,10 @@ class PurchaseOrder(models.Model):
     codigo_solicitud_cotizacion = fields.Char()
 
     order_line = fields.One2many('purchase.order.line', 'order_id', string='Order Lines', states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, copy=True)
-    picking_type_id = fields.Many2one('stock.picking.type', 'Deliver To', domain="['|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]",
-        help="This will determine operation type of incoming shipment")
+    #picking_type_id = fields.Many2one('stock.picking.type', 'Deliver To', domain="['|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]",
+    #    help="This will determine operation type of incoming shipment")
 
-    @ api.onchange('order_line','picking_type_id')
+    '''@ api.onchange('order_line','picking_type_id')
     def variante_producto(self):
         if self.picking_type_id:
             for product in self.order_line:
@@ -34,7 +34,7 @@ class PurchaseOrder(models.Model):
                     if (location != product_order):
                         raise UserError(_('El almacén del producto o variante de producto no corresponde con el almacén de entrega. '
                         'Seleccione la variante de producto correspondiente, asigne el almacén adecuado al producto / variante del producto '
-                        'o seleccione el almacen correcto de entrega.'))
+                        'o seleccione el almacen correcto de entrega.'))'''
 
     def print_quotation(self):
         self.write({'state': "sent"})
@@ -62,7 +62,7 @@ class PurchaseOrder(models.Model):
         print([(k, v) for k, v in taxes.items()])
         return [(k, v) for k, v in taxes.items()]
 
-    def button_confirm(self):
+    '''def button_confirm(self):
         if self.picking_type_id == self._default_picking_type():
             view = self.env.ref('overwrite_purchase.button_confirm_form')
             return {
@@ -74,7 +74,7 @@ class PurchaseOrder(models.Model):
                 'context': {'purchase': self.id}
             }
         else:
-            self.button_confirm_second_confirm()
+            self.button_confirm_second_confirm()'''
 
     def button_confirm_second_confirm(self):
         for order in self:
